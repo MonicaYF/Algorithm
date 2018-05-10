@@ -1,0 +1,16 @@
+class Solution {
+public: 
+    int depthSum(vector<NestedInteger>& nestedList) {
+        //if (nestedList.empty()) return 0;
+        return helper(nestedList,1);
+    }
+private:
+    int helper(vector<NestedInteger>& nestedList, int count) {
+        int sum = 0;
+        for (auto &i : nestedList){
+            sum += i.isInteger() ? count * i.getInteger() : helper(i.getList(), count++);
+          }
+          return sum;
+    } 
+   }
+};
