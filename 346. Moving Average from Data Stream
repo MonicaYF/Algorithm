@@ -1,0 +1,50 @@
+class MovingAverage {
+public:
+    /** Initialize your data structure here. */
+    /*
+    int index;
+    int size;
+    int currentSum;
+    vector<int> myvector;
+    
+    MovingAverage(int size) {
+        this -> size = size;
+        index = -1;
+        currentSum = 0;
+    }
+    
+    double next(int val) {
+        index++;
+        myvector.push_back(val);
+        double ans;
+        if (index < size) {
+            currentSum += val;
+            ans = (double)(currentSum) / (double)(index + 1);
+        }
+        else {
+            currentSum = currentSum + val - myvector[index - size];
+            ans = (double)(currentSum) / (double) size;
+        }
+        return ans;
+    }
+    */
+    queue<int> myqueue;
+    int sum;
+    int size;
+    
+    MovingAverage(int size) : size(size) , sum(0){ }
+    
+    double next(int val) {
+        myqueue.push(val);
+        if (myqueue.size() == size + 1) {
+            sum = sum - myqueue.front() + val;
+            myqueue.pop();
+            return (double)sum / size;
+        }
+        else {
+            sum += val;
+            return (double)sum / myqueue.size();
+        }   
+    }
+};
+
