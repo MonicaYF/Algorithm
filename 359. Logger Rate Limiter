@@ -1,0 +1,12 @@
+class Logger {
+    map<string, int> mymap;
+public:
+    bool shouldPrintMessage(int timestamp, string message) {
+        if (mymap.find(message) == mymap.end() || mymap[message] + 10 <= timestamp) {
+            mymap[message] = timestamp;
+            return true;
+        }
+        else return false;
+    }
+};
+
