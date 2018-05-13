@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool canPermutePalindrome(string s) {
+        vector<int> myvec(256);
+        for (int i = 0; i < s.length(); i++) {
+            myvec[s[i]] ++;
+        }
+        int odd = 0;
+        for (int i = 0; i < 256; i++) {
+            if (myvec[i] % 2 == 1) odd++;
+            if (odd > 1) return false;
+        }
+        return true;
+    }
+};
