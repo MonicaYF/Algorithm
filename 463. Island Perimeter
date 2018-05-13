@@ -1,0 +1,69 @@
+class Solution {
+    /*
+private:
+    bool qualified(vector<vector<int>>& grid, pair<int,int>  pos) {
+        if (pos.first >= 0 && pos.first < grid.size() && pos.second >= 0 && pos.second < grid[0].size() && grid[pos.first][pos.second] == 1) return true;
+        return false;
+    }
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int lines = grid.size();
+        if (lines == 0) return 0;
+        int columns = grid[0].size();
+        queue<pair<int, int> > myqueue;
+        int ans = 0;
+        vector<vector<int> > offset{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        for (int i = 0; i < lines; i++) {
+            int j = 0;
+            while (j < columns) {
+                if (grid[i][j] == 1) {
+                    myqueue.push(make_pair(i,j));
+                    break;
+                }
+                j++;
+            }
+            if (j < columns) break;
+        }
+        
+        while (!myqueue.empty()) {
+            pair<int, int> pos = myqueue.front();
+            ans += 4;
+            cout << ans<<"  ";
+            myqueue.pop();
+            grid[pos.first][pos.second] = 0;
+            for (int i = 0; i < 4; i++) {
+                pair<int,int> neighbour = make_pair(pos.first + offset[i][0], pos.second + offset[i][1]);
+                cout <<'('<< neighbour.first << ',' << neighbour.second <<')' <<"  ";
+                if (qualified(grid, neighbour)) {
+                    myqueue.push(neighbour);
+                    ans -= 2;
+                    cout << ans << "  ";
+                }
+            }
+        }
+        return ans;
+    }
+    */
+    public:
+    
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int line = grid.size(); 
+        int column = grid[0].size();
+        int sum = 0;
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                if (grid[i][j] == 1) {
+                    sum += 4;
+                    if (i != 0 && grid[i - 1][j] == 1) {
+                        sum -= 2;
+                    }
+                    if (j != 0 && grid[i][j - 1] == 1) {
+                        sum -= 2;
+                    }
+                }
+            }
+        }
+        return sum;
+    }
+    
+};
