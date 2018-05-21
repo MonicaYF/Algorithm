@@ -1,0 +1,35 @@
+class Solution {
+public:
+    /*
+    void moveZeroes(vector<int>& nums) {
+        int findZero = 0;
+        
+        while (findZero < nums.size()) {
+            if (nums[findZero] == 0) {
+                int findNonZero = findZero;
+                while (findNonZero < nums.size()) {
+                    if (nums[findNonZero] != 0 ){
+                        swap(nums[findZero], nums[findNonZero]);
+                        break;
+                    }
+                    findNonZero++;
+                }
+                if (findNonZero == nums.size()) break;
+            }
+            findZero++;
+        }
+    }
+    */
+     void moveZeroes(vector<int>& nums) {
+         int j = 0;
+         for (int i = 0; i < nums.size(); i++) {
+             if (nums[i] != 0) {
+                 nums[j++] = nums[i];
+             }
+         }
+         for (;j < nums.size();j++) {
+             nums[j] = 0;
+         }
+         
+     }
+};
