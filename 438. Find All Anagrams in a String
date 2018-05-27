@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> svec(26,0);
+        vector<int> pvec(26,0);
+        vector<int> ans;
+        int begin = 0;
+        
+        for (int i = 0; i < p.length(); i++) {
+            svec[s[i] - 'a']++;
+            pvec[p[i] - 'a']++;
+        }
+        if (svec == pvec) ans.push_back(begin);
+        for (int i = p.length(); i < s.length(); i++) {
+           svec[s[begin] - 'a']--;
+           svec[s[i] - 'a']++;
+            begin++;
+            if (svec == pvec) ans.push_back(begin);
+        }
+        return ans;
+    }
+};
