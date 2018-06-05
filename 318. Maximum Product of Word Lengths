@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxProduct(vector<string>& words) {
+        vector<int> records(words.size());
+        int ans = 0;
+        for (int i = 0; i < words.size(); i++) {
+            int temp = 0;
+            for (int j = 0; j < words[i].size(); j++) {
+                temp |= 1 << (words[i][j] - 'a');
+            }
+          
+            records[i] = temp;
+        }
+        for (int i = 0; i < records.size(); i++) {
+            for (int j = i + 1; j < records.size(); j++) {
+                if ((records[i] & records[j]) == 0) {
+                   
+                    if ((words[i].size() * words[j].size()) > ans) {
+                        
+                        ans = words[i].length() * words[j].length();
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
