@@ -1,0 +1,37 @@
+class Solution {
+public:
+    
+    bool isHappy(int n) {
+        /*
+        set<int> myset;
+        int i = n;
+        while (myset.find(i) == myset.end()) {
+            if (i == 1) return true;
+            myset.insert(i);
+            i = sumDigits(i);           
+        }
+        return false;
+        */
+        int slow = n;
+        int fast = n;
+        while (fast != 1) {
+            slow = sumDigits(slow);
+            fast = sumDigits(fast);
+            fast = sumDigits(fast);
+            if (fast == 1) break;
+            if (slow == fast) return false;
+        }
+        return true;
+    }
+   
+    int sumDigits(int n) {
+        int ans = 0;
+        while (n != 0) {
+            int cur = n % 10;
+            ans += cur * cur;
+            n = n / 10;
+        }
+        return ans;
+    }
+   
+};
