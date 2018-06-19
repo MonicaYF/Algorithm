@@ -1,0 +1,25 @@
+class Solution {
+public:
+    /*
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        int reverse = 0;
+        int cal = x;
+        while (cal != 0 ) {
+            int remain = cal % 10;
+            reverse = reverse * 10 + remain;
+            cal = cal / 10;
+        }
+        return (reverse == x);
+    }
+    */
+    bool isPalindrome(int x) {
+        if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+        int sum = 0;
+        while (x > sum) {
+            sum = sum * 10 + x % 10;
+            x = x / 10;
+        }
+        return (x == sum || x == sum / 10);
+    }
+};
