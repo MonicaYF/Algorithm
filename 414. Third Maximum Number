@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> myset;
+        for (int num : nums) {
+            if(myset.insert(num).second && myset.size() >3) {
+                myset.erase(*myset.begin());
+            }
+        }
+        return myset.size() == 3 ? *myset.begin() : *myset.rbegin();
+    }
+};
