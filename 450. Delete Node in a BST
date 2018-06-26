@@ -1,0 +1,41 @@
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root == NULL) return NULL;
+        if (root -> val == key) {
+            if (root -> left == NULL) {
+                TreeNode * right = root -> right;
+                delete root;
+                return right;
+            }
+            else {
+                /*
+                if (root -> right == NULL) {
+                    TreeNode* left = root -> left;
+                    delete root;
+                    return left;
+                }
+                else {
+                */
+                    TreeNode * n = root -> left;
+                    while (n -> right != NULL) {
+                        n = n -> right;
+                    }
+                    //root -> val = right -> val;
+                    swap(root -> val, n -> val);
+                    root -> left = deleteNode(root -> left, key);
+                    //delete right;
+                    //right = deleteNode(right, right -> val);
+                    return root;
+                //}
+            }
+        }
+        if (root -> val < key) {
+            root -> right = deleteNode(root -> right, key);
+        }
+        else {
+            root -> left = deleteNode(root -> left, key);
+        }
+        return root;
+    }
+};
