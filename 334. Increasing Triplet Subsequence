@@ -1,0 +1,39 @@
+class Solution {
+public:
+    /*
+    bool increasingTriplet(vector<int>& nums) {
+        vector<int> records;
+        for (int num : nums) {
+            int begin = 0;
+            int end = records.size();
+            while (begin < end) {
+                int mid = (end - begin) / 2 + begin;
+                if (records[mid] < num) {
+                    begin = mid + 1;
+                }
+                else end = mid;
+            }
+            if (end == records.size()) {
+                records.push_back(num);
+                if (records.size() == 3) return true;
+            }
+            else records[end] = num;
+        }
+        return false;
+    }
+    */
+    bool increasingTriplet(vector<int>& nums) {
+        int a = INT_MAX;
+        int b = INT_MAX;
+        for(int num : nums) {
+            if (num <= a) {
+                a = num;
+            }
+            else if (num <= b) {
+                b = num;
+            }
+            else return true;
+        }
+        return false;
+    }
+};
