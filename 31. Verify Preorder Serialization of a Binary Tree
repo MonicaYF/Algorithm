@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isValidSerialization(string preorder) { 
+        if (preorder[0] == '#') return preorder.size() == 1;
+        stack<string> mystack;
+        int pos = preorder.find(',');
+        if (preorder.substr(0, pos) != "#") mystack.push("1");
+        while (pos != string::npos) {
+            int tempPos = preorder.find(',', pos + 1);
+            if (tempPos != string::npos) {
+                string current = preorder.substr(pos + 1 , tempPos - pos - 1);
+                if (current == "#") {
+                    if (!mystack.empty()) {
+                        mystack.pop();
+                    }
+                    else return false;
+                }
+                else {
+                    mystack.push(current);
+                }
+                pos = tempPos;
+            }
+            else break;
+        }
+        return mystack.empty() && preorder.substr(pos + 1) == "#";
+    }
+};
