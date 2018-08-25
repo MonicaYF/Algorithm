@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> records;
+        vector<int> ans;
+        for (int i = 0; i < nums.size(); i++) {
+            while (!records.empty() && records.front() < i - k + 1) {
+                records.pop_front();
+            }
+            while (!records.empty() && nums[records.back()] < nums[i]) {
+                records.pop_back();
+            }
+            records.push_back(i);
+            if (i >= k - 1) ans.push_back(nums[records.front()]);
+        }
+        return ans;
+    }
+};
