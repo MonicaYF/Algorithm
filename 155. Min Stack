@@ -1,0 +1,32 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> main;
+    stack<int> min;
+    
+    MinStack() {}
+    
+    void push(int x) {
+        main.push(x);
+        if (min.empty() || !min.empty() && min.top() >= x) min.push(x);
+    }
+    
+    void pop() {
+        if (main.empty()) return;
+        int topOne = main.top();
+        main.pop();
+        if (min.top() == topOne) {
+            min.pop();
+        }
+    }
+    
+    int top() {
+        if (main.empty()) return 0;
+        return main.top();
+    }
+    
+    int getMin() {
+        if (min.empty()) return 0;
+        return min.top();
+    }
+};
