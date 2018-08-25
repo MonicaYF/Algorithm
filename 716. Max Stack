@@ -1,0 +1,45 @@
+class MaxStack {
+public:
+    /** initialize your data structure here. */
+    stack<vector<int>> helper;
+    stack<vector<int>> main;
+    MaxStack() {}
+    
+    void push(int x) {
+        if (main.empty()) main.push({x, x});
+        else {
+            int maxTillNow = x > main.top()[0] ? x : main.top()[0];
+            main.push({maxTillNow, x});
+        }
+    }
+    
+    int pop() {
+        int ans = main.top()[1];
+        main.pop();
+        return ans;
+    }
+    
+    int top() {
+        return main.top()[1];
+    }
+    
+    int peekMax() {
+        return main.top()[0];
+    }
+    
+    int popMax() {
+        int maxNum = main.top()[0];
+        while (main.top()[1] != maxNum) {
+            vector<int> temp = main.top();
+            helper.push(temp);
+            main.pop();
+        }
+        main.pop();
+        while(!helper.empty()) {
+            vector<int> temp = helper.top();
+            this->push(temp[1]);
+            helper.pop();
+        }
+        return maxNum;
+    }
+};
