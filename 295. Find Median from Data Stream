@@ -1,0 +1,39 @@
+class compare {
+public:
+    bool operator()(int & lhs, int &rhs) {
+        return lhs > rhs;
+    }
+};
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    
+    priority_queue<int> left;
+    priority_queue<int, vector<int>, compare> right;
+    
+    MedianFinder() {}
+    
+    void addNum(int num) {
+        if (left.empty() || left.top() > num) {
+            left.push(num);
+        }
+        else {
+            right.push(num);
+        }
+        while ((int)left.size() > (int)right.size() + 1) {
+            right.push(left.top());
+            left.pop();
+        }
+        while ((int)left.size() < (int)right.size() - 1) {
+            left.push(right.top());
+            right.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (left.size() == 0 && right.size() == 0) return 0;
+        if (left.size() == right.size()) return (left.top() + right.top()) / 2.0;
+        if (left.size() == right.size() + 1) return left.top();
+        if (right.size() == left.size() + 1) return right.top();
+    }
+};
