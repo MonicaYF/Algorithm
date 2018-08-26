@@ -1,0 +1,46 @@
+class compare {
+  public:
+    bool operator()(const int &lhs, const int &rhs) const{
+        return lhs > rhs;
+    }
+};
+class Solution {
+public:
+    vector<double> medianSlidingWindow(vector<int>& nums, int k) {
+        multiset<int> right;
+        multiset<int, compare> left;
+        vector<double> ans;
+        if (nums.size() == 0 || k <= 0) return ans;
+        for (int i = 0; i < nums.size(); i++) {
+            if (i >= k) {
+                if (left.find(nums[i - k]) != left.end()) {
+                    left.erase(left.find(nums[i - k]));
+                }
+                else if (right.find(nums[i - k]) != right.end()) {
+                    right.erase(right.find(nums[i - k]));
+                }
+            }
+            if (left.empty() || *left.begin() >= nums[i]) {
+                left.insert(nums[i]);
+                cout << "left size " << left.size() << " ";
+            }
+            else right.insert(nums[i]);
+            while ((int)left.size() < (int)right.size()) {
+                left.insert(*right.begin());
+                right.erase(right.begin());
+            }
+            while ((int)left.size() - 1 > (int)right.size()) {
+                right.insert(*left.begin());
+                left.erase(left.begin());
+            }
+            if (i >= k - 1) {
+                if (k % 2 == 0) {
+                    ans.push_back(((long)*right.begin() + ((long)*left.begin() - (long)*right.begin()) / 2.0));
+                    //cout << right.size() << " " << left.size() <<" "; 
+                }
+                else ans.push_back(*left.begin());
+            }
+        } 
+        return ans;
+    }
+};
