@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        vector<vector<int> > records(s.size() + 1, vector<int>(t.size() + 1, 0));
+        for (int i = 1; i < t.size() + 1; i++) {
+            for (int j = 1; j < s.size() + 1; j++) {
+                records[j][i] = records[j - 1][i];
+                if (s[j - 1] == t[i - 1]) {
+                    if (i == 1) records[j][i] += 1;
+                    else records[j][i] += records[j - 1][i - 1];
+                }
+            }
+        }
+        return records[s.size()][t.size()];
+    }
+};
